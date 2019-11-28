@@ -1,0 +1,4 @@
+﻿CREATE TABLE sample(
+	id SERIAL PRIMARY KEY,
+	status INTEGER NOT NULL
+);
