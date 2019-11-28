@@ -23,7 +23,10 @@ namespace StatelessDapperSample
             var connection = serviceProvider.GetRequiredService<ConnectionString>();
             var repository = new SampleRepository(connection);
 
-            var insertData = new SampleData();
+            var insertData = new SampleData()
+            {
+                Status = StatusEnum.Wait
+            };
 
             var insertResponse = repository.InsertData(insertData);
        
@@ -32,8 +35,12 @@ namespace StatelessDapperSample
             foreach (var data in getData)
             {
                 try
-                {   
-                    Console.WriteLine("sucesso: " + data.Status);
+                {
+                    var preStatus = data.Status;
+                    
+                    data._machine.Fire(TriggerEnum.Retry);
+
+                    Console.WriteLine("sucesso: "  + preStatus + " => " + data.Status);
                 }
                 catch (Exception ex)
                 {

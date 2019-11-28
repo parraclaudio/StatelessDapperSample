@@ -10,7 +10,7 @@ namespace StatelessDapperSample.Domain.Data
 
         public StatusEnum Status = StatusEnum.Initial;
 
-        protected StateMachine<StatusEnum, TriggerEnum> _machine;
+        public StateMachine<StatusEnum, TriggerEnum> _machine;
 
         public SampleData()
         {
